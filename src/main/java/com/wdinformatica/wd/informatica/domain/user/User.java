@@ -1,5 +1,6 @@
 package com.wdinformatica.wd.informatica.domain.user;
 
+import com.wdinformatica.wd.informatica.domain.plano.Planos;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +26,6 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private UserRole role;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,5 +1,6 @@
 package com.wdinformatica.wd.informatica.domain.plano;
 
+import com.wdinformatica.wd.informatica.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
