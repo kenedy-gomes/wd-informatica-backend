@@ -18,8 +18,22 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<User> getByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found for email: " + email)));
+    }
+
+    public User findById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public User updateUser(String id, User updateUser){
+        User existingUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+
+        existingUser.setName(updateUser.getName());
+        existingUser.setEmail(updateUser.getEmail());
+        existingUser.setPassword(updateUser.getPassword());
+        existingUser.setRole(updateUser.getRole());
+        return userRepository.save(existingUser);
     }
 
 }
