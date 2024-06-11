@@ -22,9 +22,11 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody  @Valid LoginRequestDTO body){

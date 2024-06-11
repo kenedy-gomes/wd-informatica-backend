@@ -7,6 +7,7 @@ import com.wdinformatica.wd.informatica.repositories.PlanosRepository;
 import com.wdinformatica.wd.informatica.services.PlanosService;
 import com.wdinformatica.wd.informatica.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +36,7 @@ public class PlanosController {
     public String createPlano(@RequestBody Planos plano) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Optional<User> optionalUser = userService.findByEmail(userDetails.getUsername());
+        Optional<User> optionalUser = userService.getByEmail(userDetails.getUsername());
 
         if (optionalUser.isEmpty()) {
             return "Usuário não encontrado.";
