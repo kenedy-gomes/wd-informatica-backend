@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.wdinformatica.wd.informatica.domain.user.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class TokenService {
 
         @Value("${api.security.token.secret}")
         private String secret;
+
         public String generateToken(User user){
                 try {
                         Algorithm algorithm = Algorithm.HMAC256(secret);
