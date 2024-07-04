@@ -15,6 +15,8 @@ public class Planos {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String plano;
+    private String megas;
     private String description;
+    private String plano;
+    private String servicos;
 }

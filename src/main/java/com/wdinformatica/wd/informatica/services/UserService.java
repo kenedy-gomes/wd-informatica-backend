@@ -37,4 +37,12 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
+
+    public Long formatCpf(String cpf) {
+        if (cpf != null) {
+            String cleanedCpf = cpf.replaceAll("\\.", "").replaceAll("-", "");
+            return Long.parseLong(cleanedCpf);
+        }
+        return null;
+    }
 }

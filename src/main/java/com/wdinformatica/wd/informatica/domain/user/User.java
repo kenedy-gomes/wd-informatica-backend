@@ -25,8 +25,11 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
-    private String cpf;
+    private Long cpf;
     private UserRole role;
+    @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private Planos plano;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,7 +39,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
