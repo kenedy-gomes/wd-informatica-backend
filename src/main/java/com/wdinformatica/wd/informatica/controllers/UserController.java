@@ -26,6 +26,8 @@ public class UserController {
     @GetMapping("/email/{email}")
     public Optional<User> getUserByEmail(@PathVariable String email) {
         return userService.getByEmail(email);
+
+
     }@GetMapping("/profile")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String authorizationHeader){
         try {
