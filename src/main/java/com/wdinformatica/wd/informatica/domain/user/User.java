@@ -1,7 +1,11 @@
 package com.wdinformatica.wd.informatica.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +14,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,11 +25,30 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @NotBlank
     private String id;
+
+    @Size(min = 5)
     private String name;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 5)
     private String password;
-    private Long cpf;
+
+    @NotBlank
+    @Size(min = 11, max = 14)
+    private String cpf;
+
+    @NotBlank
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date data_nascimento;
+
+    @NotBlank
+    private String sexo;
     private UserRole role;
     @ManyToOne
     @JoinColumn(name = "plano_id")

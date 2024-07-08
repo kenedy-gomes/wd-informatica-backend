@@ -29,10 +29,10 @@ public class AuthController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody  @Valid LoginRequestDTO body){
-        User user = this.repository.findByCpf(Long.valueOf(body.cpf())).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = this.repository.findByCpf(String.valueOf(Long.valueOf(body.cpf()))).orElseThrow(() -> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
-            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getEmail(), user.getRole(), user.getCpf(), token));
+            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getEmail(), user.getRole(), user.getCpf(), user.getData_nascimento(), user.getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -49,10 +49,12 @@ public class AuthController {
             newUser.setName(body.name());
             newUser.setRole(body.role());
             newUser.setCpf(body.cpf());
+            newUser.setData_nascimento(body.data_nascimento());
+            newUser.setSexo(body.sexo());
             this.repository.save(newUser);
 
             String token = this.tokenService.generateToken(newUser);
-            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), token));
+            return ResponseEntity.ok(new ResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), newUser.getData_nascimento(), newUser.getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }

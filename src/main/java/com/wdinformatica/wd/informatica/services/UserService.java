@@ -22,6 +22,10 @@ public class UserService {
         return Optional.ofNullable(userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found for email: " + email)));
     }
 
+    public Optional<User> getByCpf(String cpf) {
+        return Optional.ofNullable(userRepository.findByCpf(cpf).orElseThrow(() -> new RuntimeException("User not found for cpf" + cpf)));
+    }
+
     public User findById(String id) {
         return userRepository.findById(id).orElse(null);
     }
