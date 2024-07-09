@@ -7,6 +7,7 @@ import com.wdinformatica.wd.informatica.repositories.PlanosRepository;
 import com.wdinformatica.wd.informatica.services.PlanosService;
 import com.wdinformatica.wd.informatica.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +31,16 @@ public class PlanosController {
     @GetMapping
     public List<Planos> getAllPlanos() {
         return planosService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Planos> getPlanosById(@PathVariable String id) {
+        Optional<Planos> plan = planosService.findById(id);
+        if(plan.isPresent()) {
+            return ResponseEntity.ok(plan.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
