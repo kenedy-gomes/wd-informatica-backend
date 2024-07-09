@@ -1,6 +1,7 @@
 package com.wdinformatica.wd.informatica.services;
 
 import com.wdinformatica.wd.informatica.domain.user.User;
+import com.wdinformatica.wd.informatica.dto.profileRequestDTO;
 import com.wdinformatica.wd.informatica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,17 +31,15 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(String id, User updateUser){
+    public User updateUser(String id, profileRequestDTO updateUser){
         User existingUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
-
-        existingUser.setName(updateUser.getName());
-        existingUser.setEmail(updateUser.getEmail());
-        existingUser.setPassword(updateUser.getPassword());
-        existingUser.setRole(updateUser.getRole());
-        existingUser.setCpf(updateUser.getCpf());
+        existingUser.setName(updateUser.name());
+        existingUser.setEmail(updateUser.email());
+        existingUser.setCpf(updateUser.cpf());
+        existingUser.setData_nascimento(updateUser.data_nascimento());
+        existingUser.setSexo(updateUser.sexo());
         return userRepository.save(existingUser);
     }
-
 
     public Long formatCpf(String cpf) {
         if (cpf != null) {

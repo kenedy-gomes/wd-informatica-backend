@@ -26,9 +26,9 @@ public class UserController {
     @GetMapping("/email/{email}")
     public Optional<User> getUserByEmail(@PathVariable String email) {
         return userService.getByEmail(email);
+    }
 
-
-    }@GetMapping("/profile")
+    @GetMapping("/profile")
     public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String authorizationHeader){
         try {
             String cpf = JWT.decode(authorizationHeader.replace("Bearer ", "")).getSubject();
@@ -44,12 +44,8 @@ public class UserController {
         }
     }
 
-
-
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable String id, @RequestBody profileRequestDTO updatedUser) {
         return userService.updateUser(id, updatedUser);
     }
-
-
 }

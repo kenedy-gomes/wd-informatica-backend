@@ -46,8 +46,8 @@ public class User implements UserDetails {
     private String cpf;
 
     @NotBlank
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate data_nascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private String data_nascimento;
 
     @NotBlank
     private String sexo;

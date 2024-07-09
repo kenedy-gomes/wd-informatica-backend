@@ -44,6 +44,7 @@ public class AuthController {
         Optional<User> users = this.repository.findByCpf(body.cpf());
         if(user.isEmpty() && users.isEmpty()) {
             User newUser = new User();
+            newUser.setId(body.id());
             newUser.setPassword(passwordEncoder.encode(body.password()));
             newUser.setEmail(body.email());
             newUser.setName(body.name());
