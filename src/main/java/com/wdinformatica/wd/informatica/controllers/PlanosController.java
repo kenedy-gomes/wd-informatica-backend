@@ -62,4 +62,10 @@ public class PlanosController {
         planosService.save(plano);
         return "Plano cadastrado com sucesso!";
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Planos> updatePlanos (@PathVariable String id, @RequestBody Planos planosDetails) {
+        Optional<Planos> updatePlanos = planosService.updatePlanos(id, planosDetails);
+        return updatePlanos.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

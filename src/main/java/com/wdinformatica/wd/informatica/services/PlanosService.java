@@ -25,4 +25,14 @@ public class PlanosService {
         return planosRepository.findById(id);
     }
 
+    public Optional<Planos> updatePlanos(String id, Planos planosDetails) {
+        return planosRepository.findById(id).map(planos -> {
+            planos.setPlano(planos.getPlano());
+            planos.setDescription(planos.getDescription());
+            planos.setMegas(planos.getMegas());
+            planos.setServicos(planos.getServicos());
+            return planosRepository.save(planos);
+        });
+    }
+
 }

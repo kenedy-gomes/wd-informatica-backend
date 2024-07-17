@@ -29,12 +29,11 @@ public class AuthController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody  @Valid LoginRequestDTO body){
-        User user = this.repository.findByCpf(String.valueOf(Long.valueOf(body.cpf()))).orElseThrow(() -> new RuntimeException("User not found"));
-        if(passwordEncoder.matches(body.password(), user.getPassword())) {
-            String token = this.tokenService.generateToken(user);
-            return ResponseEntity.ok(new ResponseDTO(user.getName(), user.getEmail(), user.getRole(), user.getCpf(), user.getData_nascimento(), user.getSexo(), token));
+        Optional<User> user = this.repository.findByCpf(body.cpf());
+        if(passwordEncoder.matches(body.password(), user.get().getPassword())); {
+            String token = this.tokenService.generateToken(user.get());
+            return ResponseEntity.ok(new ResponseDTO(user.get().getName(), user.get().getEmail(), user.get().getRole(), user.get().getCpf(), user.get().getData_nascimento(), user.get().getSexo(), token));
         }
-        return ResponseEntity.badRequest().build();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
