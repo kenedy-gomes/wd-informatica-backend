@@ -52,7 +52,9 @@ public class User implements UserDetails {
     @NotBlank
     private String sexo;
 
+    @NotBlank
     private UserRole role;
+
     @ManyToOne
     @JoinColumn(name = "plano_id")
     private Planos plano;

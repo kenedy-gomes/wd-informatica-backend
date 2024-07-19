@@ -25,14 +25,18 @@ public class PlanosService {
         return planosRepository.findById(id);
     }
 
-    public Optional<Planos> updatePlanos(String id, Planos planosDetails) {
-        return planosRepository.findById(id).map(planos -> {
-            planos.setPlano(planos.getPlano());
-            planos.setDescription(planos.getDescription());
-            planos.setMegas(planos.getMegas());
-            planos.setServicos(planos.getServicos());
-            return planosRepository.save(planos);
-        });
+    public Planos UpdatePlanos(String id, Planos plano) {
+        Planos existingPlanos = planosRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+        existingPlanos.setPlano(plano.getPlano());
+        existingPlanos.setMegas(plano.getMegas());
+        existingPlanos.setServicos(plano.getServicos());
+        existingPlanos.setDescription(plano.getDescription());
+        return planosRepository.save(existingPlanos);
+    }
+
+    public void DeletePlanos(@PathVariable String id){
+         planosRepository.deleteById(id);
+
     }
 
 }

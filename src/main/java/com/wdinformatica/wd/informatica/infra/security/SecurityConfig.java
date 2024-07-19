@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/planos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/planos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/user/update/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/planos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
