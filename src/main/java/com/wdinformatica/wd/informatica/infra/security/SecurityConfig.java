@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/planos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/planorequests").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/contato").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/contato").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

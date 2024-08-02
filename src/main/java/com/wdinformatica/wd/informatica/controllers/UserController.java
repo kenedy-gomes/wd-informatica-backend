@@ -2,7 +2,7 @@ package com.wdinformatica.wd.informatica.controllers;
 
 import com.auth0.jwt.JWT;
 import com.wdinformatica.wd.informatica.domain.user.User;
-import com.wdinformatica.wd.informatica.dto.profileRequestDTO;
+import com.wdinformatica.wd.informatica.dto.ProfileRequestDTO;
 import com.wdinformatica.wd.informatica.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class UserController {
             String cpf = JWT.decode(authorizationHeader.replace("Bearer ", "")).getSubject();
             Optional<User> usuarioOptional = userService.getByEmail(cpf);
             if(usuarioOptional.isPresent()) {
-                profileRequestDTO user = profileRequestDTO.fromUsuario(usuarioOptional.get());
+                ProfileRequestDTO user = ProfileRequestDTO.fromUsuario(usuarioOptional.get());
                 return ResponseEntity.ok(user);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody profileRequestDTO updatedUser) {
+    public User updateUser(@PathVariable String id, @RequestBody ProfileRequestDTO updatedUser) {
         return userService.updateUser(id, updatedUser);
     }
 }

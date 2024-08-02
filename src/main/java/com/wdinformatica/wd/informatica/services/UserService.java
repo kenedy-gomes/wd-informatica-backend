@@ -1,7 +1,7 @@
 package com.wdinformatica.wd.informatica.services;
 
 import com.wdinformatica.wd.informatica.domain.user.User;
-import com.wdinformatica.wd.informatica.dto.profileRequestDTO;
+import com.wdinformatica.wd.informatica.dto.ProfileRequestDTO;
 import com.wdinformatica.wd.informatica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(String id, profileRequestDTO updateUser){
+    public User updateUser(String id, ProfileRequestDTO updateUser){
         User existingUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
         existingUser.setName(updateUser.name());
         existingUser.setEmail(updateUser.email());
