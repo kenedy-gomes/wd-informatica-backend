@@ -43,7 +43,7 @@ public class AuthController {
 
             return ResponseEntity.ok()
                     .header("Set-Cookie", cookie.toString())
-                    .body(new ResponseDTO(user.get().getName(), user.get().getEmail(), user.get().getRole(), user.get().getCpf(), user.get().getData_nascimento(), user.get().getSexo(), token));
+                    .body(new ResponseDTO(user.get().getId(), user.get().getName(), user.get().getEmail(), user.get().getRole(), user.get().getCpf(), user.get().getData_nascimento(), user.get().getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -77,7 +77,7 @@ public class AuthController {
 
             return ResponseEntity.ok()
                     .header("Set-Cookie", cookie.toString())
-                    .body(new ResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), newUser.getData_nascimento(), newUser.getSexo(), token));
+                    .body(new ResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), newUser.getData_nascimento(), newUser.getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }

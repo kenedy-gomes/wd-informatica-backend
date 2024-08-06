@@ -1,7 +1,11 @@
 package com.wdinformatica.wd.informatica.services;
 
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
+import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
+import com.wdinformatica.wd.informatica.domain.user.User;
+import com.wdinformatica.wd.informatica.repositories.PlanoRquestRepository;
 import com.wdinformatica.wd.informatica.repositories.PlanosRepository;
+import com.wdinformatica.wd.informatica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +15,15 @@ import java.util.Optional;
 
 @Service
 public class PlanosService {
+
     @Autowired
     PlanosRepository planosRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PlanoRquestRepository planoRquestRepository;
 
     public List<Planos> findAll() {
         return planosRepository.findAll();
@@ -39,4 +50,43 @@ public class PlanosService {
 
     }
 
+    public PlanRequest requestPlan(String userId, String planId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+
+        Planos plan = planosRepository.findById(planId).orElse(null);
+        if (plan == null) {
+            throw new IllegalArgumentException("Plan not found");
+        }
+
+        PlanRequest planRequest = new PlanRequest();
+        planRequest.setUser(user);
+        planRequest.setPlan(plan);
+        planRequest.setStatus("PENDENTE");
+        return planoRquestRepository.save(planRequest);
+    }
+
+    public List<PlanRequest> getAllPlanRequests() {
+        return planoRquestRepository.findAll();
+    }
+
+    public PlanRequest approvePlanRequest(String requestId) {
+        PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
+        if (planRequest != null) {
+            planRequest.setStatus("APROVADO");
+            return planoRquestRepository.save(planRequest);
+        }
+        return null;
+    }
+
+    public PlanRequest rejectPlanRequest(String requestId) {
+        PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
+        if (planRequest != null) {
+            planRequest.setStatus("RECUSADO");
+            return planoRquestRepository.save(planRequest);
+        }
+        return null;
+    }
 }

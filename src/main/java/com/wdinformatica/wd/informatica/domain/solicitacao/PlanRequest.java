@@ -1,5 +1,8 @@
-package com.wdinformatica.wd.informatica.dto;
+package com.wdinformatica.wd.informatica.domain.solicitacao;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import jakarta.persistence.*;
@@ -12,18 +15,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlanoRequestDTO {
+public class PlanRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"planRequests"})
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "plano_id")
-    private Planos plano;
+    @JoinColumn(name = "plan_id")
+    @JsonIgnoreProperties({"planRequests"})
+    private Planos plan;
 
-    private boolean approved = false;
+    private String status;
 }

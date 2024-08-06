@@ -1,7 +1,9 @@
 package com.wdinformatica.wd.informatica.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.wdinformatica.wd.informatica.domain.plano.Planos;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,14 +11,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "planRequests"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -53,11 +53,13 @@ public class User implements UserDetails {
     private String sexo;
 
     @NotBlank
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @ManyToOne
-    @JoinColumn(name = "plano_id")
-    private Planos plano;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<PlanRequest> planRequests;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

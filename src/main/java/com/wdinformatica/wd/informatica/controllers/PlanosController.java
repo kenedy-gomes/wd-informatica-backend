@@ -1,8 +1,10 @@
 package com.wdinformatica.wd.informatica.controllers;
 
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
+import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.domain.user.UserRole;
+import com.wdinformatica.wd.informatica.dto.SolicitacaoPlanoRequest;
 import com.wdinformatica.wd.informatica.repositories.PlanosRepository;
 import com.wdinformatica.wd.informatica.services.PlanosService;
 import com.wdinformatica.wd.informatica.services.UserService;
@@ -71,5 +73,25 @@ public class PlanosController {
     @DeleteMapping("/{id}")
     public void DeletePlanos(@PathVariable String id){
          planosService.DeletePlanos(id);
+    }
+
+    @PostMapping("/request-plan")
+    public PlanRequest requestPlan(@RequestBody SolicitacaoPlanoRequest planRequestDTO) {
+        return planosService.requestPlan(planRequestDTO.userId(), planRequestDTO.planId());
+    }
+
+    @GetMapping("/plan-requests")
+    public List<PlanRequest> getAllPlanRequests() {
+        return planosService.getAllPlanRequests();
+    }
+
+    @PostMapping("/approve-plan-request/{requestId}")
+    public PlanRequest approvePlanRequest(@PathVariable String requestId) {
+        return planosService.approvePlanRequest(requestId);
+    }
+
+    @PostMapping("/reject-plan-request/{requestId}")
+    public PlanRequest rejectPlanRequest(@PathVariable String requestId) {
+        return planosService.rejectPlanRequest(requestId);
     }
 }
