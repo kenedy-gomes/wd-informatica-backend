@@ -7,6 +7,8 @@ import com.wdinformatica.wd.informatica.repositories.PlanoRquestRepository;
 import com.wdinformatica.wd.informatica.repositories.PlanosRepository;
 import com.wdinformatica.wd.informatica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -65,17 +67,24 @@ public class PlanosService {
         planRequest.setUser(user);
         planRequest.setPlan(plan);
         planRequest.setStatus("PENDENTE");
+        planRequest.setSolicitado(true);
         return planoRquestRepository.save(planRequest);
     }
 
-    public List<PlanRequest> getAllPlanRequests() {
-        return planoRquestRepository.findAll();
+    public Page<PlanRequest> getAllPlanRequests(Pageable pageable) {
+        return planoRquestRepository.findAll(pageable);
+    }
+
+    public List<PlanRequest> getAllPlanRequestsForUser(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return planoRquestRepository.findAllByUserId(user.getId());
     }
 
     public PlanRequest approvePlanRequest(String requestId) {
         PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
         if (planRequest != null) {
             planRequest.setStatus("APROVADO");
+            planRequest.setSolicitado(true);
             return planoRquestRepository.save(planRequest);
         }
         return null;
@@ -85,6 +94,7 @@ public class PlanosService {
         PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
         if (planRequest != null) {
             planRequest.setStatus("RECUSADO");
+            planRequest.setSolicitado(false);
             return planoRquestRepository.save(planRequest);
         }
         return null;

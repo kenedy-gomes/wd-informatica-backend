@@ -23,7 +23,6 @@ public class Planos {
     private String description;
     private String plano;
     private String servicos;
-
     @OneToMany(mappedBy = "plan")
     private List<PlanRequest> planRequests;
 }

@@ -1,7 +1,4 @@
 package com.wdinformatica.wd.informatica.domain.solicitacao;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
 import com.wdinformatica.wd.informatica.domain.user.User;
@@ -31,4 +28,6 @@ public class PlanRequest {
     private Planos plan;
 
     private String status;
+
+    private boolean solicitado = false;
 }
