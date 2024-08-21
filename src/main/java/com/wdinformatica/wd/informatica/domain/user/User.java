@@ -3,6 +3,7 @@ package com.wdinformatica.wd.informatica.domain.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.wdinformatica.wd.informatica.domain.address.Address;
 import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -47,7 +48,7 @@ public class User implements UserDetails {
 
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private String data_nascimento;
+    private String dataNascimento;
 
     @NotBlank
     private String sexo;
@@ -56,6 +57,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference

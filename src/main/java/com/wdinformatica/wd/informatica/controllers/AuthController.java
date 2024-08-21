@@ -1,5 +1,6 @@
 package com.wdinformatica.wd.informatica.controllers;
 
+import com.wdinformatica.wd.informatica.domain.address.Address;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.dto.LoginRequestDTO;
 import com.wdinformatica.wd.informatica.dto.RegisterRequestDTO;
@@ -43,7 +44,7 @@ public class AuthController {
 
             return ResponseEntity.ok()
                     .header("Set-Cookie", cookie.toString())
-                    .body(new ResponseDTO(user.get().getId(), user.get().getName(), user.get().getEmail(), user.get().getRole(), user.get().getCpf(), user.get().getData_nascimento(), user.get().getSexo(), token));
+                    .body(new ResponseDTO(user.get().getId(), user.get().getName(), user.get().getEmail(), user.get().getRole(), user.get().getCpf(), user.get().getDataNascimento(), user.get().getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -61,8 +62,20 @@ public class AuthController {
             newUser.setName(body.name());
             newUser.setRole(body.role());
             newUser.setCpf(body.cpf());
-            newUser.setData_nascimento(body.data_nascimento());
+            newUser.setDataNascimento(body.dataNascimento());
             newUser.setSexo(body.sexo());
+
+            Address newAddres = new Address();
+            newAddres.setId(body.id());
+            newAddres.setCep(body.cep());
+            newAddres.setEndereco(body.endereco());
+            newAddres.setComplemento(body.complemento());
+            newAddres.setBairro(body.bairro());
+            newAddres.setEstado(body.estado());
+            newAddres.setCidade(body.cidade());
+
+            newUser.setAddress(newAddres);
+
             this.repository.save(newUser);
 
             String token = this.tokenService.generateToken(newUser);
@@ -77,7 +90,7 @@ public class AuthController {
 
             return ResponseEntity.ok()
                     .header("Set-Cookie", cookie.toString())
-                    .body(new ResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), newUser.getData_nascimento(), newUser.getSexo(), token));
+                    .body(new ResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getRole(), newUser.getCpf(), newUser.getDataNascimento(), newUser.getSexo(), token));
         }
         return ResponseEntity.badRequest().build();
     }

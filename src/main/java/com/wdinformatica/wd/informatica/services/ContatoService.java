@@ -1,12 +1,12 @@
 package com.wdinformatica.wd.informatica.services;
 
 import com.wdinformatica.wd.informatica.domain.contato.Contato;
-import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.repositories.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class ContatoService {
@@ -14,8 +14,8 @@ public class ContatoService {
     private ContatoRepository contatoRepository;
 
 
-    public List<Contato> getContato(){
-        return contatoRepository.findAll();
+    public Page<Contato> getContato(Pageable pageable){
+        return contatoRepository.findAll(pageable);
     }
 
     public Contato save(Contato contato) {

@@ -36,7 +36,7 @@ public class UserService {
         existingUser.setName(updateUser.name());
         existingUser.setEmail(updateUser.email());
         existingUser.setCpf(updateUser.cpf());
-        existingUser.setData_nascimento(updateUser.data_nascimento());
+        existingUser.setDataNascimento(updateUser.dataNascimento());
         existingUser.setSexo(updateUser.sexo());
         return userRepository.save(existingUser);
     }

@@ -2,8 +2,18 @@ package com.wdinformatica.wd.informatica.dto;
 
 import com.wdinformatica.wd.informatica.domain.user.UserRole;
 
-import java.time.LocalDate;
-import java.util.Date;
-
-public record RegisterRequestDTO(String id, String name, String email, String password, String cpf, String data_nascimento, String sexo, UserRole role) {
+public record RegisterRequestDTO(String id,
+                                 String name,
+                                 String email,
+                                 String password,
+                                 String cpf,
+                                 String dataNascimento,
+                                 String sexo,
+                                 UserRole role,
+                                 String cep,
+                                 String endereco,
+                                 String bairro,
+                                 String cidade,
+                                 String estado,
+                                 String complemento) {
 }

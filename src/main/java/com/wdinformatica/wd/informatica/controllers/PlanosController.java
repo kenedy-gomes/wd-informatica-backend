@@ -5,6 +5,7 @@ import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.domain.user.UserRole;
 import com.wdinformatica.wd.informatica.dto.SolicitacaoPlanoRequest;
+import com.wdinformatica.wd.informatica.repositories.PlanoRquestRepository;
 import com.wdinformatica.wd.informatica.services.PlanosService;
 import com.wdinformatica.wd.informatica.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/planos")
@@ -29,6 +28,9 @@ public class PlanosController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PlanoRquestRepository planoRquestRepository;
 
     //REQUISIÇÃO PARA PEGAR TODOS OS PLANOS
     @GetMapping
@@ -97,8 +99,8 @@ public class PlanosController {
     public PlanRequest approvePlanRequest(@PathVariable String requestId) {
         return planosService.approvePlanRequest(requestId);
     }
-    //REQUISIÇÃO PARA REJEITAR A SOLICITAÇÃO
 
+    //REQUISIÇÃO PARA REJEITAR A SOLICITAÇÃO
     @PostMapping("/reject-plan-request/{requestId}")
     public ResponseEntity<PlanRequest> rejectPlanRequest(@PathVariable String requestId) {
         PlanRequest planRequest = planosService.rejectPlanRequest(requestId);

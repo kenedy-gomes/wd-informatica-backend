@@ -4,6 +4,8 @@ import com.wdinformatica.wd.informatica.domain.contato.Contato;
 import com.wdinformatica.wd.informatica.domain.plano.Planos;
 import com.wdinformatica.wd.informatica.services.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,16 +17,16 @@ public class ContatoController {
     private ContatoService contatoService;
 
     @GetMapping
-    public List<Contato> getAllPlanos() {
-        return contatoService.getContato();
+    public Page<Contato> getAllPlanos(Pageable pageable) {
+        return contatoService.getContato(pageable);
     }
 
     @PostMapping
-    public String CreateContato (@RequestBody Contato contato){
-        List<Contato> cont = contatoService.getContato();
-
+    public String createContato(@RequestBody Contato contato, Pageable pageable){
+        Page<Contato> cont = contatoService.getContato(pageable);
         contatoService.save(contato);
         return "Plano cadastrado com sucesso!";
     }
+
 
 }
