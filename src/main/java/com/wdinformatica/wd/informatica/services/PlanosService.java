@@ -63,6 +63,11 @@ public class PlanosService {
             throw new IllegalArgumentException("Plan not found");
         }
 
+        boolean exists = planoRquestRepository.existsByUserIdAndPlanId(userId, planId);
+        if (exists) {
+            throw new IllegalArgumentException("A plan request for this user and plan already exists.");
+        }
+
         PlanRequest planRequest = new PlanRequest();
         planRequest.setUser(user);
         planRequest.setPlan(plan);
