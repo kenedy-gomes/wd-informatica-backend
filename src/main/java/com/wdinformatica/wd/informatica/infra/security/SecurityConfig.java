@@ -46,7 +46,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/contato").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/planos/user-plan-requests/").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/planos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/user/update/*").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/user/update/*").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/user/avatar/*").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/planos/*").hasRole("ADMIN")
 
                         .anyRequest().authenticated()

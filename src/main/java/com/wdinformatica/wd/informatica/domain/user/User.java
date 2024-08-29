@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,6 +57,9 @@ public class User implements UserDetails {
     @NotBlank
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @NotBlank
+    private String avarUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")

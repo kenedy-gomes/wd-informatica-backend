@@ -3,6 +3,7 @@ package com.wdinformatica.wd.informatica.services;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.dto.ProfileRequestDTO;
 import com.wdinformatica.wd.informatica.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,10 @@ public class UserService {
         existingUser.setCpf(updateUser.cpf());
         existingUser.setDataNascimento(updateUser.dataNascimento());
         existingUser.setSexo(updateUser.sexo());
+        existingUser.setAvarUrl(updateUser.avatarUrl());
         return userRepository.save(existingUser);
     }
+
 
     public Long formatCpf(String cpf) {
         if (cpf != null) {

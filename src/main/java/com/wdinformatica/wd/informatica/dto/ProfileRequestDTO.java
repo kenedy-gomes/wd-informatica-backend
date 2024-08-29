@@ -8,7 +8,8 @@ public record ProfileRequestDTO(String id,
                                 String cpf,
                                 String dataNascimento,
                                 String sexo,
-                                UserRole role) {
+                                UserRole role,
+                                String avatarUrl) {
     public static ProfileRequestDTO fromUsuario (User user){
         return new ProfileRequestDTO(
                 user.getId(),
@@ -17,7 +18,8 @@ public record ProfileRequestDTO(String id,
                 user.getCpf(),
                 user.getDataNascimento(),
                 user.getSexo(),
-                user.getRole()
+                user.getRole(),
+                user.getAvarUrl()
         );
     }
 }
