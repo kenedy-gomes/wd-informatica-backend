@@ -15,8 +15,6 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,37 +27,46 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false, unique = true)
     @NotBlank
     private String id;
 
+    @Column(name = "name", nullable = false, length = 100)
     @Size(min = 5)
     private String name;
 
+    @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
     private String email;
 
+    @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5)
     private String password;
 
+    @Column(name = "cpf", nullable = false, unique = true, length = 14)
     @NotBlank
     @Size(min = 11, max = 14)
     private String cpf;
 
+    @Column(name = "data_nascimento", nullable = false)
     @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String dataNascimento;
 
+    @Column(name = "sexo", nullable = false, length = 10)
     @NotBlank
     private String sexo;
 
-    @NotBlank
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotBlank
     private UserRole role;
 
+    @Column(name = "avatar_url", nullable = true)
     @NotBlank
-    private String avarUrl;
+    private String avatarUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")

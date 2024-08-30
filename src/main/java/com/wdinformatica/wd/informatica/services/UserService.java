@@ -39,7 +39,7 @@ public class UserService {
         existingUser.setCpf(updateUser.cpf());
         existingUser.setDataNascimento(updateUser.dataNascimento());
         existingUser.setSexo(updateUser.sexo());
-        existingUser.setAvarUrl(updateUser.avatarUrl());
+        existingUser.setAvatarUrl(updateUser.avatarUrl());
         return userRepository.save(existingUser);
     }
 

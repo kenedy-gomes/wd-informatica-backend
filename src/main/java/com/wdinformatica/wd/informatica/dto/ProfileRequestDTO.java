@@ -19,7 +19,7 @@ public record ProfileRequestDTO(String id,
                 user.getDataNascimento(),
                 user.getSexo(),
                 user.getRole(),
-                user.getAvarUrl()
+                user.getAvatarUrl()
         );
     }
 }
