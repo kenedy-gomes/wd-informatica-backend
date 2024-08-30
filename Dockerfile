@@ -8,6 +8,6 @@ ENV DB_NAME=login-auth-api \
 RUN mkdir /app
 WORKDIR /app
 COPY pom.xml /app
-COPY target/*.jar /app/app.jar
+COPY target/wd-informatica-0.0.1-SNAPSHOT.jar /app/app.jar
 CMD ["java", "-jar", "/app/app.jar"]
 
