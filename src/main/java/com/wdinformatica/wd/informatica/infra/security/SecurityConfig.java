@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/planos/plan-requests").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/planos/reject-plan-request").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/planos/approve-plan-request").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/planos/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/planos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/planorequests").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/planos/api/request-plan").hasRole("ADMIN")
