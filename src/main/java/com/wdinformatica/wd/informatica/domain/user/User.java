@@ -7,7 +7,6 @@ import com.wdinformatica.wd.informatica.domain.address.Address;
 import com.wdinformatica.wd.informatica.domain.solicitacao.PlanRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, unique = true)
-    @NotBlank
     private String id;
 
     @Column(name = "name", nullable = false, length = 100)
@@ -37,35 +35,28 @@ public class User implements UserDetails {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
-    @NotBlank
     private String email;
 
     @Column(name = "password", nullable = false)
-    @NotBlank
     @Size(min = 5)
     private String password;
 
     @Column(name = "cpf", nullable = false, unique = true, length = 14)
-    @NotBlank
     @Size(min = 11, max = 14)
     private String cpf;
 
     @Column(name = "data_nascimento", nullable = false)
-    @NotBlank
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String dataNascimento;
 
     @Column(name = "sexo", nullable = false, length = 10)
-    @NotBlank
     private String sexo;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotBlank
     private UserRole role;
 
     @Column(name = "avatar_url", nullable = true)
-    @NotBlank
     private String avatarUrl;
 
     @OneToOne(cascade = CascadeType.ALL)

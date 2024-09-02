@@ -69,11 +69,13 @@ public class PlanosController {
         planosService.save(plano);
         return "Plano cadastrado com sucesso!";
     }
+
     //REQUISIÇÃO PARA EDITAR PLANOS
     @PutMapping("/{id}")
     public Planos updatePlanos(@PathVariable String id, @RequestBody Planos plano) {
         return planosService.UpdatePlanos(id, plano);
     }
+
     //REQUISIÇÃO PARA DELETAR PLANOS
     @DeleteMapping("/{id}")
     public void DeletePlanos(@PathVariable String id){
@@ -85,16 +87,19 @@ public class PlanosController {
     public PlanRequest requestPlan(@RequestBody SolicitacaoPlanoRequest planRequestDTO) {
         return planosService.requestPlan(planRequestDTO.userId(), planRequestDTO.planId());
     }
+
     //REQUISIÇÃO PARA PEGAR TODAS AS SOLICITAÇÕES POR ID
     @GetMapping("/user-plan-requests/{userId}")
     public List<PlanRequest> getAllPlanRequestsForUser(@PathVariable String userId) {
         return planosService.getAllPlanRequestsForUser(userId);
     }
+
     //REQUISIÇÃO PARA PEGAR TODOS AS SOLICITAÇÕES
     @GetMapping("/plan-requests")
     public Page<PlanRequest> getAllPlanRequests(Pageable pageable) {
         return planosService.getAllPlanRequests(pageable);
     }
+
     //REQUISIÇÃO PARA APROVAR A SOLICITAÇÃO
     @PostMapping("/approve-plan-request/{requestId}")
     public PlanRequest approvePlanRequest(@PathVariable String requestId) {

@@ -1,7 +1,6 @@
 package com.wdinformatica.wd.informatica.domain.address;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,23 +14,24 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @NotBlank
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
 
-    @NotBlank
+    @Column(name = "endereco", nullable = false, length = 255)
     private String endereco;
 
-    @NotBlank
+    @Column(name = "bairro", nullable = false, length = 100)
     private String bairro;
 
-    @NotBlank
+    @Column(name = "cidade", nullable = false, length = 100)
     private String cidade;
 
-    @NotBlank
+    @Column(name = "estado", nullable = false, length = 2)
     private String estado;
 
-    @NotBlank
+    @Column(name = "complemento", length = 255)
     private String complemento;
 }

@@ -15,6 +15,7 @@ import lombok.Setter;
 public class PlanRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
     private String id;
 
     @ManyToOne
@@ -27,7 +28,9 @@ public class PlanRequest {
     @JsonIgnoreProperties({"planRequests"})
     private Planos plan;
 
+    @Column(name = "status", nullable = false, length = 50)
     private String status;
 
+    @Column(name = "solicitado", nullable = false, length = 10)
     private boolean solicitado = false;
 }
