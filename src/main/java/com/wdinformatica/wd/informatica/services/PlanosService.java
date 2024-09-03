@@ -65,7 +65,7 @@ public class PlanosService {
 
         boolean exists = planoRquestRepository.existsByUserIdAndPlanId(userId, planId);
         if (exists) {
-            throw new IllegalArgumentException("A plan request for this user and plan already exists.");
+            throw new IllegalArgumentException("Já existe uma solicitação para esse usuario!");
         }
 
         PlanRequest planRequest = new PlanRequest();
@@ -89,7 +89,6 @@ public class PlanosService {
         PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
         if (planRequest != null) {
             planRequest.setStatus("APROVADO");
-            planRequest.setSolicitado(true);
             return planoRquestRepository.save(planRequest);
         }
         return null;
@@ -99,7 +98,6 @@ public class PlanosService {
         PlanRequest planRequest = planoRquestRepository.findById(requestId).orElse(null);
         if (planRequest != null) {
             planRequest.setStatus("RECUSADO");
-            planRequest.setSolicitado(false);
             return planoRquestRepository.save(planRequest);
         }
         return null;
