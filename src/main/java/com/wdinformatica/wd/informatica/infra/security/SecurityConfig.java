@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,6 +47,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/planos/api/request-plan").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/contato").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/planos/user-plan-requests/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/address/*").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/address/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/planos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/user/update/*").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/user/avatar/*").permitAll()
@@ -53,7 +56,7 @@ public class SecurityConfig {
                         .requestMatchers(toH2Console()).permitAll()
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

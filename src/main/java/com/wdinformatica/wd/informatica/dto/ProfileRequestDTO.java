@@ -1,4 +1,5 @@
 package com.wdinformatica.wd.informatica.dto;
+import com.wdinformatica.wd.informatica.domain.address.Address;
 import com.wdinformatica.wd.informatica.domain.user.User;
 import com.wdinformatica.wd.informatica.domain.user.UserRole;
 
@@ -9,7 +10,8 @@ public record ProfileRequestDTO(String id,
                                 String dataNascimento,
                                 String sexo,
                                 UserRole role,
-                                String avatarUrl) {
+                                String avatarUrl,
+                                Address address) {
     public static ProfileRequestDTO fromUsuario (User user){
         return new ProfileRequestDTO(
                 user.getId(),
@@ -19,7 +21,8 @@ public record ProfileRequestDTO(String id,
                 user.getDataNascimento(),
                 user.getSexo(),
                 user.getRole(),
-                user.getAvatarUrl()
+                user.getAvatarUrl(),
+                user.getAddress()
         );
     }
 }
